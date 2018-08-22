@@ -3,7 +3,7 @@
 
 This is based on the code provided by Erivando Sena @ https://github.com/erivandoramos/TwoRC522RPi
 
-I have modified it to display the Tag IDS when they are present. 
+I have modified it. 
 
 
 Two RFID readers with Raspberry Pi
