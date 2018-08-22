@@ -1,4 +1,4 @@
-201704042042
+22.08.2018
 ------------
 
 This is based on the code provided by Erivando Sena @ https://github.com/erivandoramos/TwoRC522RPi
