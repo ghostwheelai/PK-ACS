@@ -18,9 +18,13 @@ $ cd SPI-Py
 $ sudo python setup.py install
 ```
 
+Also install pip if it's not installed then
+$ sudo pip install pyYaml
+$ sudo pip install mysql-connector
+
 Use: 
 ```
-run the command "python g_read_two_RFID.py" in the root folder of the extracted files
+run the command "sudo python main.py" in the root folder of the extracted files
 ```
 Press Ctrl + C to finish.
 
