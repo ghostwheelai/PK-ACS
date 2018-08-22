@@ -19,9 +19,10 @@ $ sudo python setup.py install
 ```
 
 Also install pip if it's not installed then
+```{r, engine='bash', count_lines}
 $ sudo pip install pyYaml
 $ sudo pip install mysql-connector
-
+```
 Use: 
 ```
 run the command "sudo python main.py" in the root folder of the extracted files
