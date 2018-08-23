@@ -28,11 +28,6 @@ Use:
 run the command "sudo python main.py" in the root folder of the extracted files
 ```
 Press Ctrl + C to finish.
-
-This can be downloaded from http://techris.in/blog/files/code/raspberry-pi/two-rfid-module-in-raspberry-pi.zip
-
 -------------
 
-Narayan
-
-g.narayan@techris.in
+Denis Kolesnikov denko@techie.com
