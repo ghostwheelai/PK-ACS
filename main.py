@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import RPi.GPIO as GPIO
 import signal
 import time
 import datetime
@@ -15,6 +16,7 @@ database='pacs_uids'
 def end_read(signal,frame):
     global continue_reading
     print "Ctrl+C captured, ending read."
+    GPIO.cleanup();
     continue_reading = False
 
 def send_data(last_id, card_id, id_bitrix, card_number):
@@ -77,9 +79,9 @@ def test(id, id_read):
         card_id, id_bitrix, card_number = res
 
         if id_read==0:
-            enter="Вход"
+            enter="Вход,"
         else:
-            enter="Выход"
+            enter="Выход,"
         
         print enter + " id карты {}, Битрикс id {}, номер карты {}".format(card_id, id_bitrix, card_number) + "\n"
     else:
@@ -107,11 +109,9 @@ while continue_reading:
     gid1,gid2 = nfc.obtem_nfc_rfid()
 
     if not gid1==0:
-        #print "ID of first Tag is:" + str(gid1)
         print_opt = 1
         test(gid1, 0)
     if not gid2==0:
-        #print "ID of SecondTag is:" + str(gid2)
         print_opt = 1
         test(gid2, 1)
 
