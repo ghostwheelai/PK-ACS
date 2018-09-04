@@ -12,6 +12,24 @@ password='ld3lsc'
 host='192.168.1.241'
 database='pacs_uids'
 
+GPIO.setmode(GPIO.BCM)
+
+class rfid_module:
+
+    def __init__(self):
+        self.turn_on()
+    
+    def turn_on(self):
+        GPIO.setup(14, GPIO.OUT, initial=GPIO.LOW)
+        self.status = True
+
+    def turn_off(self):
+        GPIO.cleanup(14)
+        self.status = False
+        self.time = 2
+
+    time = 0
+
 # Capture SIGINT for cleanup when the script is aborted
 def end_read(signal,frame):
     global continue_reading
@@ -22,10 +40,13 @@ def end_read(signal,frame):
 def send_data(last_id, card_id, id_bitrix, card_number):
 
     url = "http://random.denko.me/test.php"
-    data = {'last_id': last_id, 'card_id': card_id, 'id_bitrix': id_bitrix, 'card_number': card_number}
+    data = { 'last_id': last_id,
+             'card_id': card_id,
+             'id_bitrix': id_bitrix,
+             'card_number': card_number }
     
     req = requests.post(url, data=data)
-    print req.text
+    #print req.text
 
 def put_traffic(id, id_read):
 
@@ -83,7 +104,7 @@ def test(id, id_read):
         else:
             enter="Выход,"
         
-        print enter + " id карты {}, Битрикс id {}, номер карты {}".format(card_id, id_bitrix, card_number) + "\n"
+        print enter + " id карты {}, Битрикс id {}, номер карты {}".format(card_id, id_bitrix, card_number)
     else:
         print "Карты {} нет в базе данных".format(id)
         return None
@@ -94,26 +115,36 @@ def test(id, id_read):
         send_data(last_id, card_id, id_bitrix, card_number)
     else:
         print "Что-то пошло не так"
+    
+    rfid.turn_off()
 
 # Hook the SIGINT
 signal.signal(signal.SIGINT, end_read)
 
 nfc = Nfc522()
+rfid = rfid_module()
 
 continue_reading = True
 print "\nWaiting for Tag\n---------------\n"
 
 while continue_reading:
     print_opt = 0
-    
-    gid1,gid2 = nfc.obtem_nfc_rfid()
 
-    if not gid1==0:
-        print_opt = 1
-        test(gid1, 0)
-    if not gid2==0:
-        print_opt = 1
-        test(gid2, 1)
+    if rfid.time == 0:
+        
+        if not rfid.status:
+            rfid.turn_on()
+
+        gid1,gid2 = nfc.obtem_nfc_rfid()
+
+        if not gid1==0:
+            print_opt = 1
+            test(gid1, 0)
+        if not gid2==0:
+            print_opt = 1
+            test(gid2, 1)
+    else:
+        rfid.time -= 1
 
     if print_opt==1:
         print "\nWaiting for Tag\n---------------"
