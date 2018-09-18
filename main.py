@@ -148,4 +148,5 @@ while continue_reading:
 
     if print_opt==1:
         print "\nWaiting for Tag\n---------------"
+    
     time.sleep(1)
