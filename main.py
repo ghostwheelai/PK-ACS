@@ -28,14 +28,7 @@ class rfid_module:
         self.status = False
         self.time = 2
 
-    time = 0
-
-# Capture SIGINT for cleanup when the script is aborted
-def end_read(signal,frame):
-    global continue_reading
-    print "Ctrl+C captured, ending read."
-    GPIO.cleanup();
-    continue_reading = False
+    time = 1
 
 def send_data(last_id, card_id, id_bitrix, card_number):
 
@@ -47,6 +40,13 @@ def send_data(last_id, card_id, id_bitrix, card_number):
     
     req = requests.post(url, data=data)
     #print req.text
+
+# Capture SIGINT for cleanup when the script is aborted
+def end_read(signal,frame):
+    global continue_reading
+    print "Ctrl+C captured, ending read."
+    GPIO.cleanup();
+    continue_reading = False
 
 def put_traffic(id, id_read):
 
@@ -130,7 +130,7 @@ print "\nWaiting for Tag\n---------------\n"
 while continue_reading:
     print_opt = 0
 
-    if rfid.time == 0:
+    if rfid.time == 1:
         
         if not rfid.status:
             rfid.turn_on()
