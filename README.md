@@ -30,4 +30,4 @@ run the command "sudo python main.py" in the root folder of the extracted files
 Press Ctrl + C to finish.
 -------------
 
-Denis Kolesnikov denko@techie.com
+Denis Kolesnikov
