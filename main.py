@@ -8,8 +8,8 @@ import mysql.connector as mariadb
 from module.NFC522 import Nfc522
 
 user='user'
-password='ld3lsc'
-host='192.168.1.241'
+password='password'
+host='ip'
 database='pacs_uids'
 
 GPIO.setmode(GPIO.BCM)
